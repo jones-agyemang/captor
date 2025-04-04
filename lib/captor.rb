@@ -6,6 +6,15 @@ class Captor
   end
 
   def closest_to_zero
-    0 if readings.empty?
+    return 0 if readings.empty?
+
+    results = {}
+    readings.each do |temp|
+      results[temp] = temp.abs
+    end
+
+    min_temp = results.values.min
+
+    results.key(min_temp)
   end
 end
