@@ -8,13 +8,10 @@ class Captor
   def closest_to_zero
     return 0 if readings.empty?
 
-    results = {}
-    readings.each do |temp|
-      results[temp] = temp.abs
+    readings.reduce do |previous_temp, current_temp|
+      return previous_temp.abs if previous_temp.abs == current_temp.abs
+
+      previous_temp.abs < current_temp.abs ? previous_temp : current_temp
     end
-
-    min_temp = results.values.min
-
-    results.key(min_temp)
   end
 end
