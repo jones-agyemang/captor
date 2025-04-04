@@ -9,9 +9,11 @@ class Captor
     return 0 if readings.empty?
 
     readings.reduce do |previous_temp, current_temp|
-      return previous_temp.abs if previous_temp.abs == current_temp.abs
-
-      previous_temp.abs < current_temp.abs ? previous_temp : current_temp
+      if previous_temp.abs == current_temp.abs
+        [previous_temp, current_temp].max # returns positive value for equidistant points
+      else
+        previous_temp.abs < current_temp.abs ? previous_temp : current_temp
+      end
     end
   end
 end
